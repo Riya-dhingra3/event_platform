@@ -9,6 +9,7 @@ import Event from "../mongodb/database/modals/event.model";
 import Order from "../mongodb/database/modals/order.model";
 
 export const createUser = async (user:CreateUserParams) =>{
+    console.log('in create user function')
     try{
         await connectToDatabase();
         const newUser=await User.create(user);

@@ -64,7 +64,7 @@ export async function POST(req: Request) {
       lastName: last_name!,  
       photo: image_url,
     };
-  
+    console.log('User to be added in mongodb',user)
     const newUser = await createUser(user);
 
     if(newUser){
