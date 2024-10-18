@@ -9,7 +9,7 @@ const MONGODB_URI= process.env.MONGODB_URL
 let cached= (global as any).mongoose || {conn:null, promise:null}
 
 export const connectToDatabase = async () =>{
-
+    console.log('in connect to database function')
     // If there is already an existing connection (cached.conn), it returns that connection immediately.
     if(cached.conn) return cached.conn;
 
@@ -18,13 +18,19 @@ export const connectToDatabase = async () =>{
     }
 
     if(cached.promise){
-        cached.promise = cached.promise || mongoose.connect(MONGODB_URI, {
-            dbName: 'evently',
-            bufferCommands: false
-        })
+        try{
+            cached.promise = cached.promise || mongoose.connect(MONGODB_URI, {
+                dbName: 'evently',
+                bufferCommands: false
+            })
+    
+            cached.conn=await cached.promise;
+            console.log("Connected")
+            return cached.conn;
 
-        cached.conn=await cached.promise;
-        console.log("Connected")
-        return cached.conn;
+        }catch(error)
+        {
+            console.log('Error while connection database',error)
+        }
     }
 }
