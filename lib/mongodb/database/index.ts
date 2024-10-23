@@ -43,7 +43,7 @@ let cached = (global as any).mongoose || { conn: null, promise: null };
 
 export const connectToDatabase = async () => {
     console.log('In connect to database function');
-
+    console.log(MONGODB_URI);
     // If there is already an existing connection (cached.conn), return that connection immediately
     if (cached.conn) return cached.conn;
 
@@ -61,6 +61,7 @@ export const connectToDatabase = async () => {
     }
 
     try {
+        
         cached.conn = await cached.promise;
         console.log("Connected to database successfully");
         return cached.conn;
