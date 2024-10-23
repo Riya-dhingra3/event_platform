@@ -29,9 +29,12 @@ import { useRouter } from "next/router";
 import { createEvent } from "@/lib/actions/event.actions";
 
 type EventFormProps = {
-  userId: String;
-  type: "Create" | "Update";
-};
+  userId: string
+  type: "Create" | "Update"
+  // event?: IEvent,
+  // eventId?: string
+}
+
 const EventForm = ({ userId, type }: EventFormProps) => {
   // 1. Define your form.
   const [files, setFiles] = useState<File[]>([]);

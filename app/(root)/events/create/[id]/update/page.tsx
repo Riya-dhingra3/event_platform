@@ -5,7 +5,7 @@ import React from 'react'
 const UpdateEvent = () => {
   const { sessionClaims } = auth()
 
-  const userId = sessionClaims?.userId as String; 
+  const userId = sessionClaims?.userId as string; 
   return (
   <>
    <section className='bg-primary-50 bg-dottted-pattern bg-cover bg-center py-5 md:py-10'>
