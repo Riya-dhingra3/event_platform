@@ -29,7 +29,7 @@ import { useRouter } from "next/router";
 import { createEvent } from "@/lib/actions/event.actions";
 
 type EventFormProps = {
-  userId: string;
+  userId: String;
   type: "Create" | "Update";
 };
 const EventForm = ({ userId, type }: EventFormProps) => {
