@@ -36,7 +36,7 @@
 // }
 
 import mongoose from 'mongoose';
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URL;
 
 // The cached object is used to store the connection information to prevent creating multiple connections
 let cached = (global as any).mongoose || { conn: null, promise: null };
