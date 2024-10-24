@@ -1,16 +1,18 @@
-// import { createRouteHandler } from "uploadthing/next";
+import { createRouteHandler } from "uploadthing/next";
 
-// import { ourFileRouter } from "./core";
-
-// // Export routes for Next App Router
-// export const { GET, POST } = createRouteHandler({
-//   router: ourFileRouter,
-//   config: { ... }
-// });
-
-
-import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { ourFileRouter } from "./core";
- const f = createUploadthing();
- export const uploadRouter = {router: ourFileRouter, }; 
- // ...f({ ... })  .middleware(({ req }) => {    //           ^? req: NextRequest  })
+
+// Export routes for Next App Router
+export const { GET, POST } = createRouteHandler({
+  router: ourFileRouter,
+  // config: { ... }
+});
+
+
+// import { createUploadthing, type FileRouter } from "uploadthing/next";
+// import { ourFileRouter } from "./core";
+//  const f = createUploadthing();
+//  export default uploadRouter = {router: ourFileRouter, }; 
+//  // ...f({ ... })  .middleware(({ req }) => {    //           ^? req: NextRequest  })
+
+
