@@ -20,17 +20,19 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Checkbox } from "../ui/checkbox"
 import { useRouter } from "next/navigation"
 import { createEvent } from "@/lib/actions/event.actions"
+import User from "@/lib/mongodb/database/modals/user.model"
 
 
 
 type EventFormProps = {
+  clerkId: string
   userId: string
   type: "Create" | "Update"
   // event?: IEvent,
   eventId?: string
 }
 
-const EventForm = ({ userId, type}: EventFormProps) => {
+const EventForm = ({ clerkId, userId, type}: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([])
   const initialValues = eventDefaultValues;
   const router = useRouter();
@@ -58,17 +60,23 @@ const EventForm = ({ userId, type}: EventFormProps) => {
     if(type === 'Create') {
       try {
         console.log("userId:", userId);  // Check if userId is defined here
-        
-        // const newEvent = await createEvent({
-        //   event: { ...values, imageUrl: uploadedImageUrl },
-        //   userId,
-        //   path: '/profile'
-        // })
+        const organiser = await User.findOne({ userId });  // Use clerkId for lookup
+        console.log(organiser);
+        await createEvent({
+            event: { ...values, imageUrl: uploadedImageUrl },
+            userId,
+            path: '/profile'
+          })
+        const newEvent = await createEvent({
+          event: { ...values, imageUrl: uploadedImageUrl },
+          userId,
+          path: '/profile'
+        })
 
-      //   if(newEvent) {
-      //     form.reset();
-      //     router.push(`/events/${newEvent._id}`)
-        // }
+        if(newEvent) {
+          form.reset();
+          router.push(`/events/${newEvent._id}`)
+        }
       } catch (error) {
         console.log(error);
       }
