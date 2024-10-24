@@ -51,34 +51,40 @@ export async function POST(req: Request) {
   }
  
   // Get the ID and type
+  console.log('Received Clerk event data:', evt.data);
   const { id } = evt.data;
   const eventType = evt.type;
  
-  if(eventType === 'user.created') {
+  if (eventType === 'user.created') {
     const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
+
+    if (!id || !email_addresses || !username) {
+      console.error('Missing data in user.created event:', evt.data);
+      return NextResponse.json({ message: 'Missing required user data' }, { status: 400 });
+    }
 
     const user = {
       clerkId: id,
       email: email_addresses[0].email_address,
       username: username!,
-      firstName: first_name!,
-      lastName: last_name!,
+      firstName: first_name || '',
+      lastName: last_name || '',
       photo: image_url,
-    }
+    };
 
     const newUser = await createUser(user);
-
-    console.log(newUser);
-    if(newUser) {
+    console.log("new user is", newUser);
+    if (newUser) {
       await clerkClient.users.updateUserMetadata(id, {
         publicMetadata: {
-          userId: newUser._id
-        }
-      })
+          userId: newUser._id,
+        },
+      });
     }
 
-    return NextResponse.json({ message: 'OK', user: newUser })
+    return NextResponse.json({ message: 'OK', user: newUser });
   }
+
 
   if (eventType === 'user.updated') {
     const {id, image_url, first_name, last_name, username } = evt.data

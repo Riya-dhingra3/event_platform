@@ -36,19 +36,20 @@ export async function getUserById(userId: string) {
     }
   }
   
-  export async function updateUser(clerkId: string, user: UpdateUserParams) {
-    try {
-      await connectToDatabase()
-  
-      const updatedUser = await User.findOneAndUpdate({ clerkId }, user, { new: true })
-  
-      if (!updatedUser) throw new Error('User update failed')
-      return JSON.parse(JSON.stringify(updatedUser))
-    } catch (error) {
-      handleError(error)
-    }
+  // Update User
+export async function updateUser(clerkId: string, user: UpdateUserParams) {
+  try {
+    await connectToDatabase();
+    const updatedUser = await User.findOneAndUpdate({ clerkId }, user, { new: true });
+    
+    if (!updatedUser) throw new Error('User not found');
+    return JSON.parse(JSON.stringify(updatedUser));
+  } catch (error) {
+    handleError(error);
   }
-  
+}
+
+// Delete User
   export async function deleteUser(clerkId: string) {
     try {
       await connectToDatabase()
