@@ -23,11 +23,12 @@ import { createEvent } from "@/lib/actions/event.actions"
 
 type EventFormProps = {
   userId: string
+  clerkId: string
   type: "Create" | "Update"
   eventId?: string
 }
 
-const EventForm = ({ userId, type}: EventFormProps) => {
+const EventForm = ({ clerkId, type}: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([])
   const initialValues = eventDefaultValues;
   const router = useRouter();
@@ -55,12 +56,16 @@ const EventForm = ({ userId, type}: EventFormProps) => {
     if(type === 'Create') {
       try {
         const newEvent = await createEvent({
-          event: { ...values, imageUrl: uploadedImageUrl },
-          userId,
+          event: { 
+            ...values, 
+            imageUrl: uploadedImageUrl 
+          },
+          clerkId,  // This is already being passed
+          userId: clerkId,  // If clerkId is the same as userId, you can pass it here
           path: '/profile'
-        })
+        });
+        
 
-        console.log(userId)
         if(newEvent) {
           form.reset();
           router.push(`/events/${newEvent._id}`)

@@ -1,4 +1,3 @@
-import { getUserById } from "@/lib/actions/user.actions";
 import mongoose, { model, models, Schema } from "mongoose";
 
 // console.log(getUserById);

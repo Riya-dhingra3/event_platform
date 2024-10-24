@@ -23,18 +23,23 @@ export const createUser = async (user:CreateUserParams) =>{
 
 }
 
-export async function getUserById(userId: string) {
-    try {
-      await connectToDatabase()
-  
-      const user = await User.findById(userId)
-      console.log("user found is:",user )
-      if (!user) throw new Error('User not found')
-      return JSON.parse(JSON.stringify(user))
-    } catch (error) {
-      handleError(error)
+export async function getUserById(clerkId: string) {
+  try {
+    await connectToDatabase();
+
+    const user = await User.findById(clerkId);
+    console.log("user found is:", user);
+    
+    if (!user) {
+      throw new Error('User not found');
     }
+    
+    return JSON.parse(JSON.stringify(user));
+  } catch (error) {
+    handleError(error);
   }
+}
+
   
   // Update User
 export async function updateUser(clerkId: string, user: UpdateUserParams) {
