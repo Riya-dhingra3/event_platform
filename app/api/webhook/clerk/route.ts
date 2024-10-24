@@ -67,8 +67,8 @@ export async function POST(req: Request) {
       clerkId: id,
       email: email_addresses[0].email_address,
       username: username!,
-      firstName: first_name || '',
-      lastName: last_name || '',
+      firstName: first_name || 'Hii',
+      lastName: last_name || 'Hello',
       photo: image_url,
     };
 
