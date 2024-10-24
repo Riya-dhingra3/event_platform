@@ -16,6 +16,7 @@ export const createEvent= async({event,userId,path}: CreateEventParams)=>{
         }
 
         const newEvent=await Event.create({...event , category: event.categoryId ,  organiser: userId});
+        console.log(newEvent);
 
         return JSON.parse(JSON.stringify(newEvent));
     }
