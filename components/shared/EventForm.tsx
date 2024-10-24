@@ -25,14 +25,13 @@ import User from "@/lib/mongodb/database/modals/user.model"
 
 
 type EventFormProps = {
-  clerkId: string
   userId: string
   type: "Create" | "Update"
   // event?: IEvent,
   eventId?: string
 }
 
-const EventForm = ({ clerkId, userId, type}: EventFormProps) => {
+const EventForm = ({ userId, type}: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([])
   const initialValues = eventDefaultValues;
   const router = useRouter();
