@@ -57,16 +57,17 @@ const EventForm = ({ userId, type}: EventFormProps) => {
 
     if(type === 'Create') {
       try {
-        const newEvent = await createEvent({
-          event: { ...values, imageUrl: uploadedImageUrl },
-          userId,
-          path: '/profile'
-        })
+        console.log(userId);
+        // const newEvent = await createEvent({
+        //   event: { ...values, imageUrl: uploadedImageUrl },
+        //   userId,
+        //   path: '/profile'
+        // })
 
-        if(newEvent) {
-          form.reset();
-          router.push(`/events/${newEvent._id}`)
-        }
+      //   if(newEvent) {
+      //     form.reset();
+      //     router.push(`/events/${newEvent._id}`)
+        // }
       } catch (error) {
         console.log(error);
       }
