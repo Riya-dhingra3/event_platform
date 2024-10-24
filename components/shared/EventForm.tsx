@@ -1,4 +1,5 @@
 "use client"
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
@@ -21,14 +22,15 @@ import { useRouter } from "next/navigation"
 import { createEvent } from "@/lib/actions/event.actions"
 
 
+
 type EventFormProps = {
   userId: string
-  clerkId: string
   type: "Create" | "Update"
+  // event?: IEvent,
   eventId?: string
 }
 
-const EventForm = ({ clerkId, type}: EventFormProps) => {
+const EventForm = ({ userId, type}: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([])
   const initialValues = eventDefaultValues;
   const router = useRouter();
@@ -56,15 +58,10 @@ const EventForm = ({ clerkId, type}: EventFormProps) => {
     if(type === 'Create') {
       try {
         const newEvent = await createEvent({
-          event: { 
-            ...values, 
-            imageUrl: uploadedImageUrl 
-          },
-          clerkId,  // This is already being passed
-          userId: clerkId,  // If clerkId is the same as userId, you can pass it here
+          event: { ...values, imageUrl: uploadedImageUrl },
+          userId,
           path: '/profile'
-        });
-        
+        })
 
         if(newEvent) {
           form.reset();
@@ -285,6 +282,7 @@ const EventForm = ({ clerkId, type}: EventFormProps) => {
                         width={24}
                         height={24}
                       />
+
                       <Input placeholder="URL" {...field} className="input-field" />
                     </div>
 
