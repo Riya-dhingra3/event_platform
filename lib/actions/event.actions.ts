@@ -8,6 +8,7 @@ export const createEvent= async({event,userId,path}: CreateEventParams)=>{
     try{
         await connectToDatabase();
 
+        console.log(User.findById(userId));
         const organiser = await User.findById(userId);
 
         if(!organiser){
