@@ -40,8 +40,8 @@ import mongoose from 'mongoose';
 let cached = (global as any).mongoose || { conn: null, promise: null };
 
 export const connectToDatabase = async () => {
-    const MONGODB_URI = process.env.MONGODB_URL;
-    console.log("Mongodb url is ", process.env.MONGODB_URL)
+    const MONGODB_URI = process.env.NEXT_PUBLIC_MONGODB_URLL;
+    console.log("Mongodb url is ", process.env.NEXT_PUBLIC_MONGODB_URL)
     if (!MONGODB_URI) throw new Error("MONGODB_URI is missing");
 
     try {
