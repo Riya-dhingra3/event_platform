@@ -9,10 +9,5 @@ export const { GET, POST } = createRouteHandler({
 });
 
 
-// import { createUploadthing, type FileRouter } from "uploadthing/next";
-// import { ourFileRouter } from "./core";
-//  const f = createUploadthing();
-//  export default uploadRouter = {router: ourFileRouter, }; 
-//  // ...f({ ... })  .middleware(({ req }) => {    //           ^? req: NextRequest  })
 
 

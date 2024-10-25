@@ -23,21 +23,22 @@ export interface IEvent extends Document{
     };
   }
 
-const EventSchema = new Schema({
-    title: {type:String, required:true},
-    description: {type:String},
-    location: {type:String, required:true},
-    createdAt: {type:Date, default: Date.now()},
-    imagreUrl: {type:String, required:true},
-    startDateTime: {type:Date, default: Date.now()},
-    endDateTime: {type:Date, default: Date.now()},
-    price: {type:String },
-    isFree: {type:Boolean,default: false},
-    url: {type:String},
-    category: {type: Schema.Types.ObjectId, ref:"Category"},
-    organizer: {type: Schema.Types.ObjectId, ref:"User"}
-})
+  import mongoose from "mongoose";
 
+  const EventSchema = new mongoose.Schema({
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    location: { type: String, required: true },
+    startDateTime: { type: Date, required: true },
+    endDateTime: { type: Date, required: true },
+    price: { type: Number, required: false },
+    isFree: { type: Boolean, default: false },
+    url: { type: String },
+    imageUrl: { type: String }, // New field to store the uploaded image URL
+    organizer: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    category: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true }
+  });
+  
 
 const Event= models?.Event || model('Event',EventSchema)
 
