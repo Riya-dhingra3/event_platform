@@ -36,7 +36,8 @@
 // }
 
 import mongoose from 'mongoose';
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URL;
+console.log("directly from env",process.env.MONGODB_URL);
 console.log("URL OF MONGO DB IS before", MONGODB_URI);
 
 // The cached object is used to store the connection information to prevent creating multiple connections
