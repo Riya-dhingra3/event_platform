@@ -36,42 +36,27 @@
 // }
 
 import mongoose from 'mongoose';
-const MONGODB_URI = process.env.MONGODB_URL;
-console.log("directly from env",process.env.MONGODB_URL);
-console.log("URL OF MONGO DB IS before", MONGODB_URI);
-
 // The cached object is used to store the connection information to prevent creating multiple connections
 let cached = (global as any).mongoose || { conn: null, promise: null };
 
 export const connectToDatabase = async () => {
-    console.log('In connect to database function');
-    console.log("URL OF MONGO DB IS", MONGODB_URI);
-    // If there is already an existing connection (cached.conn), return that connection immediately
-    if (cached.conn) return cached.conn;
-
-    // Check if the MongoDB URI is defined
-    if (!MONGODB_URI) {
-        throw new Error("MONGODB_URI is missing");
-    }
-
-    // If there is no existing promise, create a new connection promise
-    if (!cached.promise) {
-        cached.promise = mongoose.connect(MONGODB_URI, {
-            dbName: 'evently',
-            bufferCommands: false
-        });
-    }
+    const MONGODB_URI = process.env.MONGODB_URL;
+    console.log("Mongodb url is ", MONGODB_URI)
+    if (!MONGODB_URI) throw new Error("MONGODB_URI is missing");
 
     try {
-
-        cached.conn = await cached.promise;
+        const connection = await mongoose.connect(MONGODB_URI, {
+            dbName: 'evently',
+            bufferCommands: false,
+        });
         console.log("Connected to database successfully");
-        return cached.conn;
+        return connection;
     } catch (error) {
         console.error('Error while connecting to the database:', error);
         throw new Error('Failed to connect to the database');
     }
 };
+
 
 
 // import mongoose from 'mongoose';
